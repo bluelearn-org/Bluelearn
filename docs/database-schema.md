@@ -47,10 +47,11 @@ Status enum values are:
 - `in_review`
 - `published`
 - `archived`
+- `rejected`
 
 ### `guide_revisions`
 
-So, guide revisions can basically be implemented in two ways: via whole guide snapshots (faster but take up slightly more storage, which may or may not be a problem because markdown/text is so tiny anyway; note: images will not be duplicated between revisions) or deltas/diffs (take up less storage but are slower and more complex). See [Snapshots vs. deltas](#snapshots-vs-deltas) for a comparison between the two methods. 
+So, guide revisions can basically be implemented in two ways: via whole guide snapshots (faster but take up slightly more storage, which may or may not be a problem because markdown/text is so tiny anyway; note: images will not be duplicated between revisions) or deltas/diffs (take up less storage but are slower and more complex). See [Snapshots vs. Deltas](#snapshots-vs-deltas) for a comparison between the two methods. 
 
 The main use cases for `guide_revisions` are for users to be able to see the history of specific guides, how they were changed, and if needed, to roll back to a previous version of the guide easily. Git itself stores snapshots internally for its version history system.
 
@@ -74,7 +75,8 @@ Status enum values are:
 - `draft`
 - `in_review`
 - `published`
-- `archived`
+- `archived` 
+- `rejected`
 
 **Rollback.** Rollback never deletes newer rows. It inserts a new revision that copies an older one's content. Through this, the version history shows that a rollback occurred through the change_summary.
 
@@ -326,7 +328,7 @@ Contests the outcome of a prior `review_case`.
 
 ---
 
-## Snapshots vs. deltas
+## Snapshots vs. Deltas
 
 `guide_revisions` and `guide_variant_revisions` store a **full snapshot** of the content per revision. The intended uses are view history, see what changed, and roll back to a previous version, which all work directly off snapshots:
 
