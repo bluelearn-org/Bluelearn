@@ -82,5 +82,5 @@ revenue — must be:
   influence over content, ranking, or verifier/moderator decisions.
 
 A formal nonprofit entity will be established before BLUE accepts
-significant external funding or runs production at scale. Jurisdiction
-is an open question.
+significant external funding or runs production at scale. The entity
+will be incorporated in California.
