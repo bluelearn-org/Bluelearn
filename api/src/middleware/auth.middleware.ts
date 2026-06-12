@@ -29,6 +29,13 @@ export const getAuthenticatedUser = async (c: Context) => {
   return { user, error: error?.message ?? null }
 }
 
+// Route guard: 401s unauthenticated requests before the handler runs.
+export const requireUser: MiddlewareHandler<HonoEnv> = async (c, next) => {
+  const { user } = await getAuthenticatedUser(c)
+  if (!user) return c.json({ error: 'Unauthorized' }, 401)
+  await next()
+}
+
 // Bypasses RLS — use only in webhooks / admin routes
 export const getServiceSupabase = (c: Context<HonoEnv>) =>
   createClient<Database>(c.env.SUPABASE_URL, c.env.SUPABASE_SECRET_KEY, {

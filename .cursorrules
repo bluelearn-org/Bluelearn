@@ -1,0 +1,40 @@
+# Cursor Rules for Bluelearn
+
+This repository contains a pnpm monorepo with:
+- `app/` – React 19 + TanStack Start + Tailwind CSS v4 + shadcn/ui frontend
+- `api/` – Hono on Cloudflare Workers (TypeScript)
+- `supabase/` – Local PostgreSQL database with migrations
+
+## Development Setup
+1. Ensure Docker is running for Supabase.
+2. Run `pnpm install` at root.
+3. Start Supabase: `pnpm supabase:start`
+4. Copy `.env.example` and `.dev.vars.example` files, fill from `supabase status`.
+5. Start API: `pnpm dev:api` (runs on localhost:8787)
+6. Start app: `pnpm dev:app` (runs on localhost:3000)
+
+## Key Commands (root)
+- `pnpm dev` – Start both app and API in parallel
+- `pnpm build` – Build all packages
+- `pnpm typecheck` – TypeScript check across workspace
+- `pnpm lint` – ESLint all packages
+- `pnpm format` – Prettier format (with Tailwind plugin)
+- `pnpm test` – Run Vitest tests (frontend only for now)
+- `pnpm supabase:reset` – Reset database and reapply migrations
+
+## Architecture Notes
+- Frontend never talks directly to Supabase; all requests go through the API.
+- API uses Hono with `supabaseMiddleware` for auth; attaches Supabase client to `c.var.supabase`.
+- Row-Level Security (RLS) in Postgres handles per‑user access.
+- Database types are generated via `supabase gen types`.
+- Type‑safe API calls planned via Hono's `hc<AppType>` client (not yet wired).
+
+## Code Patterns
+- Frontend: TanStack Router file‑based routing in `app/src/routes/`.
+- Styling: Tailwind CSS with `cn()` helper from `app/src/lib/utils.ts`.
+- Components: shadcn/ui primitives in `app/src/components/ui/`.
+- API: Each resource has its own Hono router in `api/src/routes/`.
+- Migrations: Timestamp‑named `.sql` files in `supabase/migrations/`.
+
+## For Detailed Information
+See `AGENTS.md` for complete agent‑focused documentation.

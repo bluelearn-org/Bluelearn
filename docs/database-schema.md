@@ -4,7 +4,7 @@ This doc serves as the file for laying out the database schema for this site.
 
 ## Purpose
 
-BLUE stores one global graph of topics. A guide base is a node in the learning graph, and its content lives in its guides (the original write-up plus any methods and alternatives), one of which the guide base designates as canonical. The graph is used to derive subject views, frontiers, walkthroughs, levels, and reachability.
+BLUE stores one global graph of topics. A guide base is a node in the learning graph, and its content lives in its guides (the original write-up plus any methods and alternatives), one of which the guide base designates as canonical. The graph is used to derive subject views, walkthroughs, levels, and reachability.
 
 The schema deliberately keeps the database source of truth small:
 
@@ -15,6 +15,10 @@ The schema deliberately keeps the database source of truth small:
 - Store governance records (votes, review cases, panels, decisions) as ground truth.
 - Do not store values that can be derived from the graph.
 
+## Entity Relationship Diagram
+![Entity Relationship Diagram](images/erd.png)
+
+## Tables
 ### `profiles`
 
 - `id`: primary key, references the auth user.
@@ -66,7 +70,7 @@ Methods, alternatives, and the original write-up all live here as **guides** und
 - `slug`: stable, per-guide URL identifier, unique within `guide_base_id` (see [Slugs and URLs](#slugs-and-urls)). Derived from the title and frozen at first publish; never auto-changed by later title edits.
 - `current_revision_id`: nullable FK to `guide_revisions`; points at the revision whose review case was approved (the guide's live content), null before the guide is first published. Creates a guide ↔ revision pointer cycle, so the FK should be deferrable.
 - `status`: node-level disposition; same shape as `guide_bases.status` (see enum below).
-- `author_id`: the guide's original author.
+- `author_id`: the guide's original author (FK to `profiles`).
 - `created_at`: row creation time.
 - `updated_at`: last update time.
 
@@ -76,7 +80,7 @@ Status enum values are:
 - `published` — live content exists.
 - `archived` — deliberately retired.
 
-A guide stores no `title` or `summary` of its own: both are **versioned content** living on `guide_revisions`, so a rename is captured in history and restored on rollback like any other edit. A guide's live title/summary is its current revision's; lists, frontiers, and walkthrough previews read them by joining through `current_revision_id` (most often the canonical guide's). Ordering among sibling guides under the same guide base is **derived** from votes, not stored here.
+A guide stores no `title` or `summary` of its own: both are **versioned content** living on `guide_revisions`, so a rename is captured in history and restored on rollback like any other edit. A guide's live title/summary is its current revision's; lists and walkthrough previews read them by joining through `current_revision_id` (most often the canonical guide's). Ordering among sibling guides under the same guide base is **derived** from votes, not stored here.
 
 ### `guide_revisions`
 
@@ -175,7 +179,7 @@ Allowed edge types right now are:
 - `prerequisite`
 - `related`
 
-Only `prerequisite` edges form the learning DAG. Walkthrough generation, level computation, frontier detection, and reachability checks must ignore other edge types. 
+Only `prerequisite` edges form the learning DAG. Walkthrough generation, level computation, and reachability checks must ignore other edge types. 
 
 There must be a trigger that prevents cycles among prerequisite edges. Related edges may be cyclic because they do not define learning order. Related edges are used for "related" or "see also" links, discovery/navigation, and contextual suggestions. See [Related Edges in Practice](#related-edges-in-practice) for how the directed table represents these undirected links.
 
@@ -534,10 +538,6 @@ These are computed from prerequisite edges and optional subject filters.
 
 A level is computed inside a walkthrough. The level of a guide base is its longest prerequisite path from a primitive within that walkthrough. The same guide base can have different levels in different walkthroughs, so storing a global level would be wrong.
 
-#### Frontiers
-
-A frontier is a guide base with no dependents inside a subject-filtered graph. The same guide base can be a frontier in one subject and a prerequisite in another, so frontier status is derived per subject view.
-
 #### Reachability
 
 Reachability is computed by checking whether every transitive prerequisite exists and whether TODO prerequisites remain unresolved. Storing `reachable` would risk drift whenever an edge, guide base, or TODO prerequisite changes.
@@ -684,7 +684,7 @@ When authoring a guide base, the author wires it into the graph.
 ### 8. Tag a topic into subjects
 
 1. `subjects` → row exists (or insert if new, governance-gated).
-2. `guide_subjects` → insert `(guide_base_id, subject_id)` per tag. One base can be tagged into several subjects; the composite PK blocks duplicate tags. Subject views, frontiers, and floors then filter the global graph through these rows.
+2. `guide_subjects` → insert `(guide_base_id, subject_id)` per tag. One base can be tagged into several subjects; the composite PK blocks duplicate tags. Subject views and floors then filter the global graph through these rows.
 
 ### 9. Hide content (reversible, e.g. DMCA)
 

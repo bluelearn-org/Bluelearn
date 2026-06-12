@@ -15,10 +15,10 @@
   <a href="https://github.com/bluelearn-org/bluelearn/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/bluelearn-org/bluelearn/ci.yml?branch=main&label=CI&style=flat-square"/></a>
   <a href="LICENSE"><img alt="Code: AGPL-3.0" src="https://img.shields.io/badge/code-AGPL--3.0-blue?style=flat-square"/></a>
   <a href="LICENSE-CONTENT"><img alt="Content: CC BY-SA 4.0" src="https://img.shields.io/badge/content-CC%20BY--SA%204.0-green?style=flat-square"/></a>
-  <a href="https://discord.gg/bluesystem"><img alt="Discord" src="https://img.shields.io/discord/1504519272729149502?label=discord&logo=discord&logoColor=white&style=flat-square&color=5865F2"/></a>
-  <a href="https://github.com/bluelearn-org/bluelearn/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/bluelearn-org/bluelearn?style=flat-square&color=yellow"/></a>
-  <a href="https://github.com/bluelearn-org/bluelearn/network/members"><img alt="Forks" src="https://img.shields.io/github/forks/bluelearn-org/bluelearn?style=flat-square"/></a>
-  <a href="https://github.com/bluelearn-org/bluelearn/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/bluelearn-org/bluelearn?style=flat-square"/></a>
+  <a href="https://discord.gg/bluesystem"><img alt="Discord" src="https://badgen.net/discord/members/1504519272729149502?icon=discord&color=5865F2"/></a>
+  <a href="https://github.com/bluelearn-org/bluelearn/stargazers"><img alt="Stars" src="https://badgen.net/github/stars/bluelearn-org/bluelearn?icon=github&color=yellow"/></a>
+  <a href="https://github.com/bluelearn-org/bluelearn/network/members"><img alt="Forks" src="https://badgen.net/github/forks/bluelearn-org/bluelearn?icon=github"/></a>
+  <a href="https://github.com/bluelearn-org/bluelearn/graphs/contributors"><img alt="Contributors" src="https://badgen.net/github/contributors/bluelearn-org/bluelearn?icon=github"/></a>
   <a href="https://github.com/bluelearn-org/bluelearn/pulls"><img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-005776?style=flat-square"/></a>
   <a href="https://bluelearn.org"><img alt="Homepage" src="https://img.shields.io/badge/site-bluelearn.org-005776?style=flat-square"/></a>
 </p>
@@ -225,11 +225,11 @@ making content available offline in low-bandwidth regions.
 
 | | |
 | --- | --- |
-| **Stars** | ![Stars](https://img.shields.io/github/stars/bluelearn-org/bluelearn?style=flat-square&label=&color=yellow) |
-| **Forks** | ![Forks](https://img.shields.io/github/forks/bluelearn-org/bluelearn?style=flat-square&label=) |
-| **Open issues** | ![Issues](https://img.shields.io/github/issues/bluelearn-org/bluelearn?style=flat-square&label=) |
-| **Open PRs** | ![PRs](https://img.shields.io/github/issues-pr/bluelearn-org/bluelearn?style=flat-square&label=) |
-| **Discord members** | ![Discord](https://img.shields.io/discord/1504519272729149502?style=flat-square&label=&logo=discord&logoColor=white&color=5865F2) |
+| **Stars** | ![Stars](https://badgen.net/github/stars/bluelearn-org/bluelearn?icon=github&color=yellow) |
+| **Forks** | ![Forks](https://badgen.net/github/forks/bluelearn-org/bluelearn?icon=github) |
+| **Open issues** | ![Issues](https://badgen.net/github/open-issues/bluelearn-org/bluelearn?icon=github) |
+| **Open PRs** | ![PRs](https://badgen.net/github/open-prs/bluelearn-org/bluelearn?icon=github) |
+| **Discord members** | ![Discord](https://badgen.net/discord/members/1504519272729149502?icon=discord&color=5865F2) |
 
 ---
 
